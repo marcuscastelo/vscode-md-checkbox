@@ -19,8 +19,18 @@
         "category": "Markdown Checkbox"
       },
       {
-        "command": "md-checkbox.cycle_previous",
+        "command": "md-checkbox.cyclePrev",
         "title": "Cycle Previous Checkbox State",
+        "category": "Markdown Checkbox"
+      },
+      {
+        "command": "md-checkbox.cycleSpecialNext",
+        "title": "Cycle Next Special Checkbox State",
+        "category": "Markdown Checkbox"
+      },
+      {
+        "command": "md-checkbox.cycleSpecialPrev",
+        "title": "Cycle Previous Special Checkbox State",
         "category": "Markdown Checkbox"
       }
     ],
@@ -33,6 +43,16 @@
       {
         "key": "alt+shift+q",
         "command": "md-checkbox.cyclePrev",
+        "when": "editorTextFocus"
+      },
+      {
+        "key": "alt+w",
+        "command": "md-checkbox.cycleSpecialNext",
+        "when": "editorTextFocus"
+      },
+      {
+        "key": "alt+shift+w",
+        "command": "md-checkbox.cycleSpecialPrev",
         "when": "editorTextFocus"
       }
     ],
@@ -48,7 +68,18 @@
             "[ ]",
             "[x]"
           ],
-          "description": "Stages of checkbox states to cycle through"
+          "description": "Main stages of checkbox states to cycle through"
+        },
+        "md-checkbox.specialStages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "[/]",
+            "[?]"
+          ],
+          "description": "Special checkbox states (separate cycle from main stages)"
         }
       }
     }
