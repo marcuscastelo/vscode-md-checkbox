@@ -14,10 +14,33 @@
   "contributes": {
     "commands": [
       {
-        "command": "md-checkbox.helloWorld",
-        "title": "Hello World"
+        "command": "checkboxReplacer.replaceNext",
+        "title": "Replace Checkbox State"
       }
-    ]
+    ],
+    "keybindings": [
+      {
+        "key": "alt+q",
+        "command": "checkboxReplacer.replaceNext",
+        "when": "editorTextFocus"
+      }
+    ],
+    "configuration": {
+      "title": "Checkbox Replacer",
+      "properties": {
+        "checkboxReplacer.stages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "[ ]",
+            "[x]"
+          ],
+          "description": "Stages of checkbox states to cycle through"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "pnpm run compile",
