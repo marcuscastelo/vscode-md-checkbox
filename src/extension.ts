@@ -1,34 +1,21 @@
-// checkbox-replacer/src/extension.ts
-
 import * as vscode from 'vscode';
 
 export function activate(context: vscode.ExtensionContext) {
   const replaceCheckbox = vscode.commands.registerCommand('checkboxReplacer.replaceNext', async () => {
     const editor = vscode.window.activeTextEditor;
-    if (!editor) {return;}
+    if (!editor) { return; }
 
-    const document = editor.document;
-    const position = editor.selection.active;
-    const line = document.lineAt(position.line);
-    const text = line.text;
+    const line = editor.document.lineAt(editor.selection.active.line);
+    const stages = vscode.workspace.getConfiguration('checkboxReplacer').get('stages', ['[ ]', '[x]']) as string[];
 
-    let replacedText = text;
-
-	const stages: string[] = vscode.workspace.getConfiguration('checkboxReplacer').get('stages', ['[ ]', '[x]']);
-
-	for (let i = 0; i < stages.length; i++) {
-		const currentStage = stages[i];
-		const nextStage = stages[(i + 1) % stages.length];
-		if (text.includes(`${currentStage}`)) {
-			replacedText = text.replace(`${currentStage}`, `${nextStage}`);
-			break; // Stop after the first match
-		}
-	}
-
-    if (replacedText !== text) {
-      await editor.edit(editBuilder => {
-        editBuilder.replace(line.range, replacedText);
-      });
+    for (let i = 0; i < stages.length; i++) {
+      if (line.text.includes(stages[i])) {
+        const nextStage = stages[(i + 1) % stages.length];
+        await editor.edit(editBuilder => {
+          editBuilder.replace(line.range, line.text.replace(stages[i], nextStage));
+        });
+        break;
+      }
     }
   });
 
