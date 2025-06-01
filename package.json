@@ -59,7 +59,7 @@
     "configuration": {
       "title": "Checkbox Replacer",
       "properties": {
-        "md-checkbox.stages": {
+        "md-checkbox.mainStages": {
           "type": "array",
           "items": {
             "type": "string"
