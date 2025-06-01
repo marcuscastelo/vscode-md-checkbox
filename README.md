@@ -185,19 +185,8 @@ The extension intelligently handles transitions between different checkbox types
 [/] → Alt+Q → [x] (switches to main cycle)
 
 # When cycling from main to special states:
-[ ] → Alt+W → [/] (switches to special cycle)
+[x] → Alt+W → [/] (switches to special cycle)
 ```
-
-### Smart Detection
-
-The extension automatically detects which cycle a checkbox belongs to and maintains the cycling behavior accordingly. This allows you to have mixed checkbox types on the same line.
-
-## 📁 File Support
-
-- Works with `.md` and `.markdown` files
-- Compatible with untitled markdown documents
-- Shows helpful warnings for non-markdown files
-
 ## 🐛 Troubleshooting
 
 ### Common Issues
