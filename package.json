@@ -1,6 +1,6 @@
 {
   "name": "md-checkbox",
-  "displayName": "md-checkbox",
+  "displayName": "Markdown Checkbox Replacer",
   "description": "Simple Markdown Checkbox State Toggler",
   "version": "0.0.1",
   "engines": {
@@ -14,21 +14,32 @@
   "contributes": {
     "commands": [
       {
-        "command": "checkboxReplacer.replaceNext",
-        "title": "Replace Checkbox State"
+        "command": "md-checkbox.cycleNext",
+        "title": "Cycle Next Checkbox State",
+        "category": "Markdown Checkbox"
+      },
+      {
+        "command": "md-checkbox.cycle_previous",
+        "title": "Cycle Previous Checkbox State",
+        "category": "Markdown Checkbox"
       }
     ],
     "keybindings": [
       {
         "key": "alt+q",
-        "command": "checkboxReplacer.replaceNext",
+        "command": "md-checkbox.cycleNext",
+        "when": "editorTextFocus"
+      },
+      {
+        "key": "alt+shift+q",
+        "command": "md-checkbox.cyclePrev",
         "when": "editorTextFocus"
       }
     ],
     "configuration": {
       "title": "Checkbox Replacer",
       "properties": {
-        "checkboxReplacer.stages": {
+        "md-checkbox.stages": {
           "type": "array",
           "items": {
             "type": "string"
