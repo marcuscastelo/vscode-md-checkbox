@@ -51,6 +51,7 @@ const MIN_STAGES_REQUIRED = 1;
  */
 const EXTENSION_NAME = 'Markdown Checkbox Extension';
 const MARKDOWN_FILE_EXTENSIONS = ['.md', '.markdown'];
+const MARKDOWN_LANGUAGE_ID = 'markdown';
 
 /**
  * Utility function for consistent logging
@@ -332,10 +333,14 @@ async function cycleCheckboxes(direction: Direction, useSpecialStages: boolean =
       return;
     }
 
-    // Check if file is markdown (but don't block operation for untitled files)
-    if (!editor.document.isUntitled && !isMarkdownFile(editor.document.fileName)) {
-      vscode.window.showInformationMessage(`${EXTENSION_NAME} works best with .md or .markdown files`);
-      logMessage(`Operating on non-markdown file: ${editor.document.fileName}`, 'warn');
+    // Check if file is markdown language or has markdown extension
+    const isMarkdownLanguage = editor.document.languageId === MARKDOWN_LANGUAGE_ID;
+    const isMarkdownByExtension = !editor.document.isUntitled && isMarkdownFile(editor.document.fileName);
+    
+    if (!isMarkdownLanguage && !isMarkdownByExtension) {
+      vscode.window.showWarningMessage(`${EXTENSION_NAME} only works with Markdown files. Please set language mode to Markdown or use .md/.markdown files.`);
+      logMessage(`Attempted to use extension on non-markdown file: ${editor.document.fileName} (language: ${editor.document.languageId})`, 'warn');
+      return;
     }
 
     const line = editor.document.lineAt(editor.selection.active.line);

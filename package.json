@@ -7,9 +7,13 @@
     "vscode": "^1.100.0"
   },
   "categories": [
-    "Other"
+    "Other",
+    "Keymaps",
+    "Formatters"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:markdown"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
@@ -38,22 +42,22 @@
       {
         "key": "alt+q",
         "command": "md-checkbox.cycleNext",
-        "when": "editorTextFocus"
+        "when": "editorTextFocus && editorLangId == markdown"
       },
       {
         "key": "alt+shift+q",
         "command": "md-checkbox.cyclePrev",
-        "when": "editorTextFocus"
+        "when": "editorTextFocus && editorLangId == markdown"
       },
       {
         "key": "alt+w",
         "command": "md-checkbox.cycleSpecialNext",
-        "when": "editorTextFocus"
+        "when": "editorTextFocus && editorLangId == markdown"
       },
       {
         "key": "alt+shift+w",
         "command": "md-checkbox.cycleSpecialPrev",
-        "when": "editorTextFocus"
+        "when": "editorTextFocus && editorLangId == markdown"
       }
     ],
     "configuration": {
