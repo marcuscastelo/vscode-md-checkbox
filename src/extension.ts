@@ -99,7 +99,7 @@ function replaceAllCheckboxes(checkboxes: Checkbox[], newStage: string, text: st
   return result;
 }
 
-async function cycleCheckboxes(direction: 1 | -1, useSpecialStages: boolean = false): Promise<void> {
+async function cycleCheckboxes(direction: 'forward' | 'backward', useSpecialStages: boolean = false): Promise<void> {
   const editor = vscode.window.activeTextEditor;
   if (!editor) { return; }
 
@@ -112,7 +112,7 @@ async function cycleCheckboxes(direction: 1 | -1, useSpecialStages: boolean = fa
   const checkboxes = findCheckboxes(line.text, primaryStages, secondaryStages);
   if (checkboxes.length === 0) { return; }
 
-  const newText = direction === 1 
+  const newText = direction === 'forward'
     ? cycleForward(checkboxes, primaryStages, line.text)
     : cycleBackward(checkboxes, primaryStages, line.text);
 
@@ -125,10 +125,10 @@ async function cycleCheckboxes(direction: 1 | -1, useSpecialStages: boolean = fa
 
 export function activate(context: vscode.ExtensionContext) {
   const commands = [
-    vscode.commands.registerCommand('md-checkbox.cycleNext', () => cycleCheckboxes(1, false)),
-    vscode.commands.registerCommand('md-checkbox.cyclePrev', () => cycleCheckboxes(-1, false)),
-    vscode.commands.registerCommand('md-checkbox.cycleSpecialNext', () => cycleCheckboxes(1, true)),
-    vscode.commands.registerCommand('md-checkbox.cycleSpecialPrev', () => cycleCheckboxes(-1, true))
+    vscode.commands.registerCommand('md-checkbox.cycleNext', () => cycleCheckboxes('forward', false)),
+    vscode.commands.registerCommand('md-checkbox.cyclePrev', () => cycleCheckboxes('backward', false)),
+    vscode.commands.registerCommand('md-checkbox.cycleSpecialNext', () => cycleCheckboxes('forward', true)),
+    vscode.commands.registerCommand('md-checkbox.cycleSpecialPrev', () => cycleCheckboxes('backward', true))
   ];
 
   context.subscriptions.push(...commands);
