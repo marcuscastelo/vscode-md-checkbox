@@ -3,6 +3,7 @@
   "displayName": "Markdown Checkbox Replacer",
   "description": "Simple Markdown Checkbox State Toggler",
   "version": "0.0.1",
+  "repository": "https://github.com/marcuscastelo/vscode-md-checkbox",
   "engines": {
     "vscode": "^1.100.0"
   },
