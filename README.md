@@ -1,71 +1,240 @@
-# md-checkbox README
+# Markdown Checkbox Replacer
 
-This is the README for your extension "md-checkbox". After writing up a brief description, we recommend including the following sections.
+A powerful VS Code extension that makes managing markdown checkboxes effortless. Quickly toggle between different checkbox states using simple keyboard shortcuts, with support for both standard and custom checkbox cycles.
 
-## Features
+![VS Code Extension Version](https://img.shields.io/badge/vscode-^1.100.0-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+## ✨ Features
 
-For example if there is an image subfolder under your extension project workspace:
+- **Quick Toggle**: Cycle through checkbox states with keyboard shortcuts
+- **Dual Cycles**: Support for main and special checkbox state cycles
+- **Multi-checkbox Support**: Handle multiple checkboxes on the same line
+- **Fully Customizable**: Configure your own checkbox states and cycles
+- **Smart Detection**: Automatically detects and cycles between different checkbox types
+- **Bidirectional Cycling**: Move forward or backward through checkbox states
 
-\!\[feature X\]\(images/feature-x.png\)
+## 🚀 Quick Start
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+1. Install the extension
+2. Open any markdown file (`.md` or `.markdown`)
+3. Position your cursor on a line with checkboxes
+4. Use the keyboard shortcuts to cycle through states:
+   - `Alt+Q` - Cycle forward through main states
+   - `Alt+Shift+Q` - Cycle backward through main states
+   - `Alt+W` - Cycle forward through special states
+   - `Alt+Shift+W` - Cycle backward through special states
 
-## Requirements
+## 📋 Basic Usage
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+### Standard Checkbox Cycling
 
-## Extension Settings
+The extension comes with two pre-configured checkbox cycles:
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+**Main Cycle** (Alt+Q / Alt+Shift+Q):
+```markdown
+- [ ] Unchecked task
+- [x] Completed task
+```
 
-For example:
+**Special Cycle** (Alt+W / Alt+Shift+W):
+```markdown
+- [/] In progress task  
+- [?] Unclear task
+```
 
-This extension contributes the following settings:
+### Example Workflow
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+```markdown
+Before: - [ ] Write documentation
+Press Alt+Q: - [x] Write documentation
 
-## Known Issues
+Before: - [/] Review code
+Press Alt+W: - [?] Review code
+Press Alt+W: - [/] Review code (cycles back)
+```
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+### Multiple Checkboxes
 
-## Release Notes
+When a line contains multiple checkboxes, they cycle sequentially from left to right:
 
-Users appreciate release notes as you update your extension.
+```markdown
+Before: - [ ] Task 1 [ ] Task 2 [ ] Task 3
+Press Alt+Q: - [x] Task 1 [ ] Task 2 [ ] Task 3
+Press Alt+Q: - [x] Task 1 [x] Task 2 [ ] Task 3
+Press Alt+Q: - [x] Task 1 [x] Task 2 [x] Task 3
+Press Alt+Q: - [ ] Task 1 [ ] Task 2 [ ] Task 3 (resets all)
+```
 
-### 1.0.0
+## ⚙️ Configuration
 
-Initial release of ...
+### Accessing Settings
 
-### 1.0.1
+1. Open VS Code Settings (`Ctrl+,` / `Cmd+,`)
+2. Search for "md-checkbox"
+3. Configure the checkbox stages
 
-Fixed issue #.
+Or edit your `settings.json` directly:
 
-### 1.1.0
+```json
+{
+  "md-checkbox.mainStages": ["[ ]", "[x]"],
+  "md-checkbox.specialStages": ["[/]", "[?]"]
+}
+```
 
-Added features X, Y, and Z.
+### Custom Checkbox States
+
+You can create your own checkbox cycles with any symbols or text:
+
+#### Example 1: Priority System
+```json
+{
+  "md-checkbox.mainStages": ["[ ]", "[!]", "[x]"],
+  "md-checkbox.specialStages": ["[low]", "[med]", "[high]"]
+}
+```
+
+**Result:**
+```markdown
+[ ] → [!] → [x] → [ ] (main cycle)
+[low] → [med] → [high] → [low] (special cycle)
+```
+
+#### Example 2: Status Tracking
+```json
+{
+  "md-checkbox.mainStages": ["[ ]", "[~]", "[x]"],
+  "md-checkbox.specialStages": ["[TODO]", "[DOING]", "[DONE]"]
+}
+```
+
+**Result:**
+```markdown
+[ ] → [~] → [x] → [ ] (main cycle)  
+[TODO] → [DOING] → [DONE] → [TODO] (special cycle)
+```
+
+#### Example 3: Emoji System
+```json
+{
+  "md-checkbox.mainStages": ["[ ]", "[🔄]", "[✅]"],
+  "md-checkbox.specialStages": ["[❓]", "[⚠️]", "[🚫]"]
+}
+```
+
+**Result:**
+```markdown
+[ ] → [🔄] → [✅] → [ ] (main cycle)
+[❓] → [⚠️] → [🚫] → [❓] (special cycle)
+```
+
+### Advanced Configuration Examples
+
+#### Single State Cycles
+```json
+{
+  "md-checkbox.mainStages": ["[ ]", "[x]"],
+  "md-checkbox.specialStages": ["[!]"]
+}
+```
+
+#### Extended Workflows
+```json
+{
+  "md-checkbox.mainStages": ["[ ]", "[.]", "[o]", "[x]"],
+  "md-checkbox.specialStages": ["[blocked]", "[waiting]", "[review]"]
+}
+```
+
+## ⌨️ Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| `Alt+Q` | Cycle forward through main checkbox states |
+| `Alt+Shift+Q` | Cycle backward through main checkbox states |
+| `Alt+W` | Cycle forward through special checkbox states |
+| `Alt+Shift+W` | Cycle backward through special checkbox states |
+
+### Customizing Shortcuts
+
+You can customize the keyboard shortcuts in VS Code:
+
+1. Open Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`)
+2. Type "Preferences: Open Keyboard Shortcuts"
+3. Search for "md-checkbox"
+4. Click the pencil icon to edit shortcuts
+
+## 🎯 Commands
+
+The extension provides four commands accessible via the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`):
+
+- `Markdown Checkbox: Cycle Next Checkbox State`
+- `Markdown Checkbox: Cycle Previous Checkbox State`
+- `Markdown Checkbox: Cycle Next Special Checkbox State`
+- `Markdown Checkbox: Cycle Previous Special Checkbox State`
+
+## 🔧 How It Works
+
+### Cross-Cycle Transitions
+
+The extension intelligently handles transitions between different checkbox types:
+
+```markdown
+# When cycling from special to main states:
+[/] → Alt+Q → [x] (switches to main cycle)
+
+# When cycling from main to special states:
+[ ] → Alt+W → [/] (switches to special cycle)
+```
+
+### Smart Detection
+
+The extension automatically detects which cycle a checkbox belongs to and maintains the cycling behavior accordingly. This allows you to have mixed checkbox types on the same line.
+
+## 📁 File Support
+
+- Works with `.md` and `.markdown` files
+- Compatible with untitled markdown documents
+- Shows helpful warnings for non-markdown files
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Q: Shortcuts not working?**
+A: Ensure your cursor is positioned on a line with checkboxes and you're in a markdown file.
+
+**Q: Custom states not appearing?**
+A: Check your settings syntax and ensure all stages are non-empty strings in array format.
+
+**Q: Extension not activating?**
+A: Make sure you're working with a `.md` or `.markdown` file, or any text file with markdown content.
+
+### Configuration Validation
+
+The extension validates your configuration and will show error messages for:
+- Empty or invalid stage arrays
+- Non-string values in stage arrays
+- Missing required configuration
+
+## 🔄 Version History
+
+### 0.0.1
+- Initial release
+- Basic checkbox cycling functionality
+- Configurable main and special stages
+- Bidirectional cycling support
+- Multi-checkbox line support
+
+## 📝 License
+
+This extension is licensed under the MIT License.
+
+## 🤝 Contributing
+
+Found a bug or have a feature request? Please open an issue on our repository.
 
 ---
 
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+**Enjoy faster markdown checkbox management! 🎉**
