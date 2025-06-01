@@ -209,7 +209,7 @@ The extension validates your configuration and will show error messages for:
 
 ## 🔄 Version History
 
-### 0.0.1
+### 0.1.0
 - Initial release
 - Basic checkbox cycling functionality
 - Configurable main and special stages

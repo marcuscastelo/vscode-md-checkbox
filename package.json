@@ -2,7 +2,7 @@
   "name": "md-checkbox",
   "displayName": "Markdown Checkbox Replacer",
   "description": "Simple Markdown Checkbox State Toggler",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "repository": "https://github.com/marcuscastelo/vscode-md-checkbox",
   "engines": {
     "vscode": "^1.100.0"
